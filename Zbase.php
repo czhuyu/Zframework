@@ -25,11 +25,17 @@ class Zbase{
 	*@return 一个App对象
 	*/
 	public static function autoload($class_name){
+		//用户写的类是不需要直接写死在Map里面的，所以先做一个判断
+		if(substr($class_name , 0 , 3) === 'App') {
+            self::$class_map[$class_name] = APP_PATH . substr($class_name, 3) . '.class.php';//important            
+        }
+		//print_r(self::$class_map);
+
 		if(isset(self::$class_map[$class_name])){
 			$class_file = self::$class_map[$class_name];
 			include($class_file);
 		}else{
-			echo "class_map has not found the discription of this class_name";
+			echo "class_map has not found the discription of ".$class_name;
 		}
 	}
 }

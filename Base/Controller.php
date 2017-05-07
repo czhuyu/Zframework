@@ -5,7 +5,7 @@
 */
 namespace Z\Base;
 class Controller{
-	private $data = [];
+	protected $data = [];
 
 
 	/**
