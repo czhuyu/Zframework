@@ -9,10 +9,29 @@ class App{
 	*@return [Controller,function]
 	*/
 	public function resolve(){
-		$path = $_SERVER['PATH_INFO'];
+		$path = isset($_SERVER['PATH_INFO'])?$_SERVER['PATH_INFO']:'';		
 		$path = trim($path,'/');
-		
-		$cf = explode('/', $path);
+
+		//分析出控制器 方法
+		if($path == ''){
+			$path = [];
+			$cf = ['Index','index'];
+		}else{
+			$path = explode('/', $path);
+			$cf = [$path[0],$path[1]];
+		}
+
+		//分析出GET参数
+		$param = array_slice($path, 2);
+		$param_len = count($param);
+		//echo $param_len;
+
+		if($param_len>=2){
+			for($i = 0; $i<$param_len;$i+=2){
+				$_GET[$param[$i]] = $param[$i+1];
+			}
+		}
+
 		return $cf;
 	}
 	/**
@@ -21,7 +40,8 @@ class App{
 	public function runController(){
 		list($c,$f) = $this->resolve();
 		$controller = $this->createController($c);
-		var_dump($controller);
+		$controller->$f();
+		//print_r($_GET);
 	}
 
 	/**
