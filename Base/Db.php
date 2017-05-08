@@ -29,7 +29,10 @@ class Db extends \PDO{
 
 	//新增一条数据
 	public function insert($sql,$param){
-		return $this->ex($sql,$param)->lastInsertId();
+		$this->ex($sql,$param);
+		return $this->lastInsertId();
+
+
 	}
 
 	//删除一条数据
