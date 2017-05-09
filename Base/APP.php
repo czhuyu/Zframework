@@ -4,6 +4,45 @@
 */
 namespace Z\Base;
 class App{
+
+	public function __construct(){
+		set_exception_handler([$this,'exceptionHandler']);
+		set_error_handler([$this,'errorHandler']);
+	}
+
+	public function exceptionHandler($e){
+		$this->echoException($e);
+	}
+
+
+	public function errorHandler($severity, $message, $file, $line){
+		throw new \ErrorException($message, 0, $severity, $file, $line);
+		
+	}
+
+	public function echoException($e){
+		$message = $e->getMessage();
+		$file = $e->getFile();
+		$line = $e->getLine();
+		$trace = $e->getTrace();
+
+		if($e instanceof \ErrorException){
+			array_shift($trace);
+		}
+
+		echo '<pre>';
+		echo '错误:','<br>';
+		echo $message.':'.$file.' line:'.$line;
+		echo '<br>','trace:'.'<br>';
+		foreach (array_reverse($trace) as $v) {
+			echo $v['file'].' line:'.$v['line'].'<br>';
+		}
+
+		//print_r($e);
+		echo '<pre>';
+
+	}
+
 	/**
 	*分析PATH_INFO里面的参数
 	*@return [Controller,function]
