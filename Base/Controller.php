@@ -23,7 +23,7 @@ class Controller{
 	*/
 	public function display($view){
 		extract($this->data,EXTR_OVERWRITE
-);//因为传过来的值已经被封成一个数组,所以先把数组拆成变量名=变量值lll
+);//因为传过来的值已经被封成一个数组,所以先把数组拆成变量名=变量值lllaaa
 		include (APP_PATH.'/View/Index/'.$view.'.html');
 	}
 }
