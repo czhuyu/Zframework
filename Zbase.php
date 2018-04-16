@@ -20,7 +20,7 @@ class Zbase{
 		return self::$app;
 	}
 
-	/**
+	/**k
 	*自动include需要创建的类的php文件
 	*@return 一个App对象
 	*/
