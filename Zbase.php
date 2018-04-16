@@ -5,7 +5,7 @@
 namespace Z;
 
 define('ZPATH', __DIR__);//定义框架的根目录
-define('DEBUG', false);//定义是否开启debug模式fas
+define('DEBUG', false);//定义是否开启debug模式_20180416
 
 class Zbase{
 	private static $app = null;
